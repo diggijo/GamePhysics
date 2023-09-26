@@ -30,35 +30,25 @@ public class SpherePhysics : MonoBehaviour, ICollidable
         deltaS = velocity * Time.deltaTime;
         acceleration = gravity * Vector3.down;
         velocity += acceleration * Time.deltaTime;
-        transform.position += velocity * Time.deltaTime;
+        transform.position += deltaS;
+
 
         ballToPlane = distance(ps.transform.position, transform.position);
         parallelLine = ICollidable.parallel(ballToPlane, ps.normal);
 
-        if(parallelLine.magnitude <= radius)
+        float d0 = ballToPlane.magnitude;
+        float d1 = parallelLine.magnitude - radius;
+        Debug.Log("DeltaS: " + deltaS); //Problem DeltaS
+
+        if(d1 < 0)
         {
-            transform.position += ICollidable.perpendicular(deltaS, ps.normal) - ICollidable.parallel(deltaS, ps.normal);
-
-            velocity = ICollidable.perpendicular(velocity, ps.normal) - (CoR * ICollidable.parallel(velocity, ps.normal));
-
-        }
-
-        /*float d1 = parallelLine.magnitude - radius;
-    
-        if (d1 <= 0)
-        {
-            float t1 = (d1 / (d0 + d1)) * Time.deltaTime;
-            Vector3 posAtTOI = transform.position - velocity * t1;
+            float t1 = (d1 / (d0 - d1)) * Time.deltaTime;
+            Vector3 posAtTOI = transform.position - deltaS * t1;
             Vector3 velocityAtTOI = velocity - acceleration * t1;
-            Vector3 newVelocityAtTOI = rebound(velocityAtTOI, ps.normal);
-            velocity = newVelocityAtTOI + acceleration * t1;
+            Vector3 newVelocityAtTOI = ICollidable.rebound(velocityAtTOI, ps.normal, CoR);
+            velocity = newVelocityAtTOI - acceleration * t1;
             transform.position = posAtTOI + newVelocityAtTOI * t1;
         }
-
-        else
-        {
-            d0 = d1;
-        } */
     }
 
     public Vector3 distance(Vector3 o, Vector3 p)

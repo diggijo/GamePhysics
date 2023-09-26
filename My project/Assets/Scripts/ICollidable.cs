@@ -14,10 +14,15 @@ public interface ICollidable
         return (v - parallel(v, normal));
     }
 
+    static public Vector3 rebound(Vector3 v, Vector3 normal, float CoR)
+    {
+        return perpendicular(v, normal) - (CoR * parallel(v, normal));
+    }
+
     static bool isColliding(SpherePhysics s1, SpherePhysics s2)
     {
-        return Vector3.Distance(s1.transform.position,
-                                s2.transform.position) <
-                                s1.radius + s2.radius;
+        float distance = Vector3.Distance(s1.transform.position, s2.transform.position);
+
+        return distance < s1.radius + s2.radius; 
     }
 }

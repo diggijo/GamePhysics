@@ -6,24 +6,24 @@ using UnityEngine;
 public class PhysicsManager : MonoBehaviour, ICollidable
 {
 
-    List<SpherePhysics> Spheres;
+    List<SpherePhysics> spheres;
 
     // Start is called before the first frame update
     void Start()
     {
-        Spheres = FindObjectsOfType<SpherePhysics>().ToList();
+        spheres = FindObjectsOfType<SpherePhysics>().ToList();
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < Spheres.Count; i++)
+        for (int i = 0; i < spheres.Count; i++)
         {
-            for (int j = i + 1; j < Spheres.Count; j++)
+            for (int j = i + 1; j < spheres.Count; j++)
             {
-                if (ICollidable.isColliding(Spheres[i], Spheres[j]))
+                if (ICollidable.isColliding(spheres[i], spheres[j]))
                 {
-                    Spheres[j].velocity = Spheres[i].ResolveCollisionWith(Spheres[j]);
+                    spheres[j].velocity = spheres[i].ResolveCollisionWith(spheres[j]);
                 }
             }
         }
