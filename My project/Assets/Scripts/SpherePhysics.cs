@@ -6,18 +6,21 @@ using UnityEngine;
 public class SpherePhysics : MonoBehaviour, ICollidable
 {
     internal Vector3 velocity;
-    Vector3 acceleration;
+    internal Vector3 acceleration;
     float gravity = 9.81f;
     internal float radius
     {
         get { return transform.localScale.x / 2.0f; }
         private set { transform.localScale = 2 * value * Vector3.one; }
     }
-    const float CoR = .75f;
+    internal float CoR = .75f;
     PlaneScript ps;
     Vector3 ballToPlane;
     Vector3 parallelLine;
-    Vector3 deltaS;
+    internal Vector3 deltaS;
+    internal Vector3 deltaPos;
+    internal Vector3 prevPos;
+    internal Vector3 normal;
     float mass = 1;
 
     void Start()
@@ -30,20 +33,20 @@ public class SpherePhysics : MonoBehaviour, ICollidable
         deltaS = velocity * Time.deltaTime;
         acceleration = gravity * Vector3.down;
         velocity += acceleration * Time.deltaTime;
-        transform.position += deltaS;
-
+        deltaPos = transform.position + deltaS;
+        prevPos = transform.position;
+        transform.position = deltaPos;
 
         ballToPlane = distance(ps.transform.position, transform.position);
         parallelLine = ICollidable.parallel(ballToPlane, ps.normal);
 
         float d0 = ballToPlane.magnitude;
         float d1 = parallelLine.magnitude - radius;
-        Debug.Log("DeltaS: " + deltaS); //Problem DeltaS
 
-        if(d1 < 0)
+        if(d1 <= 0)
         {
             float t1 = (d1 / (d0 - d1)) * Time.deltaTime;
-            Vector3 posAtTOI = transform.position - deltaS * t1;
+            Vector3 posAtTOI = deltaPos;
             Vector3 velocityAtTOI = velocity - acceleration * t1;
             Vector3 newVelocityAtTOI = ICollidable.rebound(velocityAtTOI, ps.normal, CoR);
             velocity = newVelocityAtTOI - acceleration * t1;
@@ -51,7 +54,7 @@ public class SpherePhysics : MonoBehaviour, ICollidable
         }
     }
 
-    public Vector3 distance(Vector3 o, Vector3 p)
+    internal Vector3 distance(Vector3 o, Vector3 p)
     {
         return o - p;
     }
