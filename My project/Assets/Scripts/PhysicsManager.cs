@@ -33,17 +33,18 @@ public class PhysicsManager : MonoBehaviour, ICollidable
                     float dCurrent = Vector3.Distance(s1.transform.position, s2.transform.position) - sumOfRadii;
 
                     float tAtTOI = dCurrent / (dPrev - dCurrent) * Time.deltaTime;
-                    Vector3 s1PosTOI = s1.deltaPos;
-                    Vector3 s2PosTOI = s2.deltaPos;
+                  
+                    Vector3 s1PosTOI =s1.transform.position - s1.velocity * tAtTOI;//        s1.deltaPos;
+                    Vector3 s2PosTOI = s2.transform.position - s2.velocity * tAtTOI;// s2PosTOI = s2.deltaPos;
                     Vector3 s1VelTOI = s1.velocity - s1.acceleration * tAtTOI;
-                    Vector3 s2VelTOI = s2.velocity + s2.acceleration * tAtTOI;
+                    Vector3 s2VelTOI = s2.velocity - s2.acceleration * tAtTOI;
 
                     Vector3 normal = s1.distance(s1PosTOI, s2PosTOI).normalized;
-                    Vector3 s1NewVel = ICollidable.rebound(-s1VelTOI, normal, s1.CoR);
-                    Vector3 s2NewVel = ICollidable.rebound(-s2VelTOI, normal, s2.CoR);
+                    Vector3 s1NewVel = ICollidable.rebound(s1VelTOI, normal, s1.CoR);
+                    Vector3 s2NewVel = ICollidable.rebound(s2VelTOI, normal, s2.CoR);
 
-                    s1.velocity = s1NewVel + s1.acceleration * tAtTOI;
-                    s2.velocity = s2NewVel + s2.acceleration * tAtTOI;
+                    s1.velocity = s1NewVel - s1.acceleration * tAtTOI;
+                    s2.velocity = s2NewVel - s2.acceleration * tAtTOI;
                     s1.transform.position = s1PosTOI + s1NewVel * tAtTOI;
                     s2.transform.position = s2PosTOI + s2NewVel * tAtTOI;
 
