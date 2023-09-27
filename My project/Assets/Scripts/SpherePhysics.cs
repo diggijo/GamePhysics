@@ -46,7 +46,7 @@ public class SpherePhysics : MonoBehaviour, ICollidable
         if(d1 <= 0)
         {
             float t1 = (d1 / (d0 - d1)) * Time.deltaTime;
-            Vector3 posAtTOI = deltaPos;
+            Vector3 posAtTOI = transform.position - (velocity * t1);
             Vector3 velocityAtTOI = velocity - acceleration * t1;
             Vector3 newVelocityAtTOI = ICollidable.rebound(velocityAtTOI, ps.normal, CoR);
             velocity = newVelocityAtTOI - acceleration * t1;
