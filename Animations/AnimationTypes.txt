@@ -1,0 +1,5 @@
+Blend Tree
+Grouping - Substate machines - Behaviours e.g Footsteps on contact with ground.
+Layering/Masks
+Alernate Source Animation
+Inverse Kinematics
