@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     private enum PlayerStates
     {
         IDLE,
-        WALK
+        WALK,
+        RUN
     }
 
     PlayerStates CurrentState
@@ -24,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
                 case PlayerStates.WALK:
                     animator.Play("Walk");
                     break;
+                case PlayerStates.RUN:
+                    animator.Play("Run");
+                    break;
             }
         }
     }
@@ -32,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float playerSpeed = 2.0f;
+    private float runTimer = 0f;
+    private float startRunning = 3f;
     private float jumpHeight = 1.0f;
     private float gravityValue = -9.81f;
     private PlayerStates currentState;
@@ -54,15 +60,23 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         Debug.Log(move);
-        if (move != Vector3.zero)
+        if (move != Vector3.zero && runTimer < startRunning)
         {
             CurrentState = PlayerStates.WALK;
+            animator.SetFloat("xAxis", move.x);
+            animator.SetFloat("zAxis", move.z);
+            runTimer += Time.deltaTime;
+        }
+        else if(move!= Vector3.zero && runTimer > startRunning)
+        {
+            CurrentState = PlayerStates.RUN;
             animator.SetFloat("xAxis", move.x);
             animator.SetFloat("zAxis", move.z);
         }
         else
         {
             CurrentState = PlayerStates.IDLE;
+            runTimer = 0;
         }
 
         /*
