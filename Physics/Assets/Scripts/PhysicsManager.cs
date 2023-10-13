@@ -7,7 +7,7 @@ public class PhysicsManager : MonoBehaviour, ICollidable
 {
 
     List<SpherePhysics> spheres;
-
+    internal bool hasCollided;
     void Start()
     {
         spheres = FindObjectsOfType<SpherePhysics>().ToList();
@@ -21,6 +21,7 @@ public class PhysicsManager : MonoBehaviour, ICollidable
             {
                 if (ICollidable.isColliding(spheres[i], spheres[j]))
                 {
+                    hasCollided = true;
                     SpherePhysics sph1 = spheres[i];
                     SpherePhysics sph2 = spheres[j];
                     float sumOfRadii = sph1.radius + sph2.radius;

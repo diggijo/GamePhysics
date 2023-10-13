@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 68843376}
   m_Layer: 0
   m_Name: MySphere
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68843370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 6.33, z: 0}
+  m_LocalPosition: {x: 2, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -219,6 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4871b7fe1bf9ff4e9cf4d294efd6389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mass: 1
+  gravity: 9.81
 --- !u!1 &110747524
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +265,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110747524}
-  m_Material: {fileID: 13400000, guid: fbd8d3367d149cd4dbabbe1783fac9cb, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -583,7 +585,7 @@ GameObject:
   - component: {fileID: 1824698165}
   m_Layer: 0
   m_Name: OtherSphere
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -646,7 +648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824698159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.77, y: 1.96, z: 0}
+  m_LocalPosition: {x: -2, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -665,3 +667,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4871b7fe1bf9ff4e9cf4d294efd6389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mass: 1
+  gravity: 9.81
