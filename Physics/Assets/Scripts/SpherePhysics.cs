@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SpherePhysics : MonoBehaviour, ICollidable
 {
-    [SerializeField] private float mass = 1;
-    [SerializeField] private float gravity = 9.81f;
+    private float mass = 1;
+    internal float gravity;
     private Vector3 velocity;
     private Vector3 acceleration;
     internal float radius
