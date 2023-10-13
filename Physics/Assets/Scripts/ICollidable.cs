@@ -23,6 +23,11 @@ public interface ICollidable
     {
         float distance = Vector3.Distance(s1.transform.position, s2.transform.position);
 
-        return distance < s1.radius + s2.radius; 
+        return distance <= s1.radius + s2.radius;
+    }
+
+    static Vector3 distance(Vector3 o, Vector3 p)
+    {
+        return o - p;
     }
 }
