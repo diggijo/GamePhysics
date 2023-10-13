@@ -6,7 +6,7 @@ using UnityEngine;
 public class PhysicsManager : MonoBehaviour, ICollidable
 {
 
-    List<SpherePhysics> spheres;
+    internal List<SpherePhysics> spheres;
     internal bool hasCollided;
     void Start()
     {
@@ -26,7 +26,10 @@ public class PhysicsManager : MonoBehaviour, ICollidable
                     SpherePhysics sph2 = spheres[j];
                     float sumOfRadii = sph1.radius + sph2.radius;
 
-                    sph1.ResolveCollisionWithSphere(sph1, sph2, sumOfRadii);
+                    if(!gameObject.tag.Equals("Player"))
+                    {
+                        sph1.ResolveCollisionWithSphere(sph1, sph2, sumOfRadii);
+                    }
                 }
             }
         }
