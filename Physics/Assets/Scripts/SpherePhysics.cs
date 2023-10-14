@@ -22,14 +22,17 @@ public class SpherePhysics : MonoBehaviour, ICollidable
     private Vector3 prevPos;
     private PlaneScript ps;
     private PhysicsManager pm;
+    private GameplayManager gm;
     private Vector3 ballToPlane;
     private Vector3 parallelLine;
+    private const float delay = 2f;
 
     void Start()
     {
         acceleration = gravity * Vector3.down;
         ps = FindObjectOfType<PlaneScript>();
         pm = FindObjectOfType<PhysicsManager>();
+        gm = FindObjectOfType<GameplayManager>();
     }
 
     void FixedUpdate()
@@ -67,9 +70,9 @@ public class SpherePhysics : MonoBehaviour, ICollidable
 
         if (!collidedWithPlane && gameObject.CompareTag("Target"))
         {
-            Debug.Log("SCORE");
+            gm.IncreaseScore(1);
             collidedWithPlane = true;
-            StartCoroutine(DestroyAfter(gameObject, 2f));
+            StartCoroutine(DestroyAfter(gameObject, delay));
         }
     }
 
@@ -110,8 +113,7 @@ public class SpherePhysics : MonoBehaviour, ICollidable
     {
         yield return new WaitForSeconds(delay);
 
-        // Destroy the sphere after the specified delay
-        if (go != null) // Check if the sphere still exists
+        if (go != null)
         {
             Destroy(go);
             pm.spawnedSpheres.Remove(go);

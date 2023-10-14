@@ -18,7 +18,6 @@ public class SphereSpawner : MonoBehaviour
     float minY = -20f;
     float timer;
     const float duration = 1f;
-    const float delay = 3f;
 
 
     void Start()
