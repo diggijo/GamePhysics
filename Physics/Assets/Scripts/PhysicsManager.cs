@@ -7,7 +7,8 @@ public class PhysicsManager : MonoBehaviour, ICollidable
 {
 
     internal List<SpherePhysics> spheres;
-    internal bool hasCollided;
+    internal List<GameObject> spawnedSpheres = new List<GameObject>();
+
     void Start()
     {
         spheres = FindObjectsOfType<SpherePhysics>().ToList();
@@ -21,15 +22,11 @@ public class PhysicsManager : MonoBehaviour, ICollidable
             {
                 if (ICollidable.isColliding(spheres[i], spheres[j]))
                 {
-                    hasCollided = true;
                     SpherePhysics sph1 = spheres[i];
                     SpherePhysics sph2 = spheres[j];
                     float sumOfRadii = sph1.radius + sph2.radius;
 
-                    if(!gameObject.tag.Equals("Player"))
-                    {
-                        sph1.ResolveCollisionWithSphere(sph1, sph2, sumOfRadii);
-                    }
+                    sph1.ResolveCollisionWithSphere(sph1, sph2, sumOfRadii);
                 }
             }
         }
