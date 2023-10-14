@@ -8,7 +8,7 @@ public class SpherePhysics : MonoBehaviour, ICollidable
 {
     internal bool collidedWithPlane = false;
     private float mass = 1;
-    internal float gravity; //= 9.81f;
+    internal float gravity= 9.81f; //Set Gravity for Sample Scene
     internal bool outOfScene = false;
     internal Vector3 velocity;
     private Vector3 acceleration;
