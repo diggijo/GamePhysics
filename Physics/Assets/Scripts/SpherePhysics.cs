@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpherePhysics : MonoBehaviour, ICollidable
 {
+    internal bool collidedWithPlane = false;
     private float mass = 1;
-    internal float gravity;
-    private Vector3 velocity;
+    internal float gravity; //= 9.81f;
+    internal bool outOfScene = false;
+    internal Vector3 velocity;
     private Vector3 acceleration;
     internal float radius
     {
@@ -15,12 +18,12 @@ public class SpherePhysics : MonoBehaviour, ICollidable
         private set { transform.localScale = 2 * value * Vector3.one; }
     }
     private float CoR = .75f;
-    private PlaneScript ps;
-    private Vector3 ballToPlane;
-    private Vector3 parallelLine;
     private Vector3 deltaS;
     private Vector3 prevPos;
+    private PlaneScript ps;
     private PhysicsManager pm;
+    private Vector3 ballToPlane;
+    private Vector3 parallelLine;
 
     void Start()
     {
@@ -31,10 +34,7 @@ public class SpherePhysics : MonoBehaviour, ICollidable
 
     void FixedUpdate()
     {
-        if(gameObject.tag.Equals("Player") || pm.hasCollided)
-        {
-            moveSphere();
-        }
+        moveSphere();
 
         ballToPlane = ICollidable.distance(ps.transform.position, transform.position);
         parallelLine = ICollidable.parallel(ballToPlane, ps.normal);
@@ -44,7 +44,7 @@ public class SpherePhysics : MonoBehaviour, ICollidable
 
         if (d1 <= 0)
         {
-            ResolveCollisionWithPlane(d0, d1);
+            ResolveCollisionWithPlane(d0, d1, ps.normal);
         }
     }
 
@@ -56,14 +56,21 @@ public class SpherePhysics : MonoBehaviour, ICollidable
         transform.position += deltaS;
     }
 
-    internal void ResolveCollisionWithPlane(float d0, float d1)
+    internal void ResolveCollisionWithPlane(float d0, float d1, Vector3 normal)
     {
         float t1 = d1 * (Time.deltaTime / (d1 - d0));
         Vector3 posAtTOI = transform.position - deltaS * t1;
         Vector3 velocityAtTOI = velocity - acceleration * t1;
-        Vector3 newVelocityAtTOI = ICollidable.rebound(velocityAtTOI, ps.normal, CoR);
+        Vector3 newVelocityAtTOI = ICollidable.rebound(velocityAtTOI, normal, CoR);
         velocity = newVelocityAtTOI - acceleration * t1;
         transform.position = posAtTOI + newVelocityAtTOI * t1;
+
+        if (!collidedWithPlane && gameObject.CompareTag("Target"))
+        {
+            Debug.Log("SCORE");
+            collidedWithPlane = true;
+            StartCoroutine(DestroyAfter(gameObject, 2f));
+        }
     }
 
     internal void ResolveCollisionWithSphere(SpherePhysics sph1, SpherePhysics sph2, float sumOfRadii)
@@ -98,4 +105,17 @@ public class SpherePhysics : MonoBehaviour, ICollidable
         sph1.transform.position = s1PosTOI + sph1.velocity * tAtTOI;
         sph2.transform.position = s2PosTOI + sph2.velocity * tAtTOI;
     }
+
+    IEnumerator DestroyAfter(GameObject go, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Destroy the sphere after the specified delay
+        if (go != null) // Check if the sphere still exists
+        {
+            Destroy(go);
+            pm.spawnedSpheres.Remove(go);
+            pm.spheres.Remove(go.GetComponent<SpherePhysics>());
+        }
+    }    
 }
