@@ -9,17 +9,17 @@ public class GameplayManager : MonoBehaviour
 {
     [SerializeField] private Image uiFill;
     [SerializeField] private Text timerText;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private GameOverScreen gameOverScreen;
     public int gameTimeLimit = 60;
     private int timeRemaining;
     private int score = 0;
-
-    //public Text scoreText;
-
+    internal bool gameOver = false;
     void Start()
     {
         timeRemaining = gameTimeLimit;
         StartCoroutine(UpdateTimerUI());
-        //UpdateScoreUI();
+        UpdateScoreUI();
     }
 
     private IEnumerator UpdateTimerUI()
@@ -37,7 +37,8 @@ public class GameplayManager : MonoBehaviour
 
     private void OnEnd()
     {
-        print("End");
+        gameOver = true;
+        gameOverScreen.Setup(score);
     }
 
     public void IncreaseScore(int points)
@@ -48,6 +49,6 @@ public class GameplayManager : MonoBehaviour
 
     private void UpdateScoreUI()
     {
-        //scoreText.text = "Score: " + score;
+        scoreText.text = "" + score;
     }
 }

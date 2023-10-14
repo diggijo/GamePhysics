@@ -70,6 +70,7 @@ public class SpherePhysics : MonoBehaviour, ICollidable
 
         if (!collidedWithPlane && gameObject.CompareTag("Target"))
         {
+            ps.Flash();
             gm.IncreaseScore(1);
             collidedWithPlane = true;
             StartCoroutine(DestroyAfter(gameObject, delay));

@@ -10,36 +10,47 @@ public class SphereSpawner : MonoBehaviour
     [SerializeField] private GameObject spherePrefab;
     [SerializeField] private GameObject targetPrefab;
     private PhysicsManager pm;
+    private GameplayManager gm;
     float shootSpeed = 20f;
     private float lastSpawnX = 0.0f;
     float range = 20f;
     float gravityMin = 2f;
     float gravityMax = 5f;
     float minY = -20f;
-    float timer;
+    float spawnTimer;
+    float shootTimer;
     const float duration = 1f;
 
 
     void Start()
     {
         pm = FindObjectOfType<PhysicsManager>();
+        gm = FindObjectOfType<GameplayManager>();
     }
     void Update()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= duration)
+        if(!gm.gameOver)
         {
-            spawnTarget();
-            timer = 0f;
-        }
+            spawnTimer += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            shootSphere();
-        }
+            if (spawnTimer >= duration)
+            {
+                spawnTarget();
+                spawnTimer = 0f;
+            }
 
-        checkRemove(pm.spawnedSpheres);
+            if (shootTimer >= duration)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    shootTimer = 0f;
+                    shootSphere();
+                }
+            }
+
+            shootTimer += Time.deltaTime;
+            checkRemove(pm.spawnedSpheres);
+        }
     }
 
     private void checkRemove(List<GameObject> list)
