@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
     {
         IDLE,
         WALK,
-        RUN
+        RUN,
+        SPRINT
     }
 
     PlayerStates CurrentState
@@ -20,13 +21,22 @@ public class PlayerMovement : MonoBehaviour
             switch(currentState)
             {
                 case PlayerStates.IDLE:
-                    animator.Play("Idle");
+                    animator.SetBool("isWalking", false);
+                    animator.SetBool("isRunning", false);
+                    animator.SetBool("isSprinting", false);
                     break;
                 case PlayerStates.WALK:
-                    animator.Play("Walk");
+                    playerSpeed = WALK_SPEED;
+                    animator.SetBool("isWalking", true);
                     break;
                 case PlayerStates.RUN:
-                    animator.Play("Run");
+                    playerSpeed = RUN_SPEED;
+                    animator.SetBool("isRunning", true);
+                    animator.SetBool("isSprinting", false);
+                    break;
+                case PlayerStates.SPRINT:
+                    playerSpeed = SPRINT_SPEED;
+                    animator.SetBool("isSprinting", true);
                     break;
             }
         }
@@ -35,11 +45,14 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    private float playerSpeed = 2.0f;
+    private float playerSpeed;
+    private const float WALK_SPEED = 2f;
+    private const float RUN_SPEED = 4f;
+    private const float SPRINT_SPEED = 6f;
     private float runTimer = 0f;
     private float startRunning = 3f;
-    private float jumpHeight = 1.0f;
-    private float gravityValue = -9.81f;
+    //private float jumpHeight = 1.0f;
+    //private float gravityValue = -9.81f;
     private PlayerStates currentState;
 
     private void Start()
@@ -59,19 +72,29 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * playerSpeed);
 
-        Debug.Log(move);
-        if (move != Vector3.zero && runTimer < startRunning)
+        if(move!= Vector3.zero)
         {
-            CurrentState = PlayerStates.WALK;
-            animator.SetFloat("xAxis", move.x);
-            animator.SetFloat("zAxis", move.z);
             runTimer += Time.deltaTime;
-        }
-        else if(move!= Vector3.zero && runTimer > startRunning)
-        {
-            CurrentState = PlayerStates.RUN;
             animator.SetFloat("xAxis", move.x);
             animator.SetFloat("zAxis", move.z);
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                CurrentState = PlayerStates.SPRINT;
+            }
+
+            else
+            {
+                if (runTimer < startRunning)
+                {
+                    CurrentState = PlayerStates.WALK;
+                }
+
+                else
+                {
+                    CurrentState = PlayerStates.RUN;
+                }
+            }
         }
         else
         {
