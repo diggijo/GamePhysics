@@ -24,20 +24,22 @@ public class PlayerMovement : MonoBehaviour
                 case PlayerStates.IDLE:
                     animator.SetBool("isWalking", false);
                     animator.SetBool("isRunning", false);
-                    animator.SetBool("isSprinting", false);
                     break;
                 case PlayerStates.WALK:
                     playerSpeed = WALK_SPEED;
                     animator.SetBool("isWalking", true);
+                    animator.SetBool("isRunning", false);
                     break;
                 case PlayerStates.RUN:
                     playerSpeed = RUN_SPEED;
+                    animator.SetBool("isWalking", false);
                     animator.SetBool("isRunning", true);
                     animator.SetBool("isSprinting", false);
                     break;
                 case PlayerStates.SPRINT:
                     playerSpeed = SPRINT_SPEED;
                     animator.SetBool("isSprinting", true);
+                    animator.SetBool("isWalking", false);
                     break;
                 case PlayerStates.JUMP:
                     animator.SetBool("isJumping", true);
@@ -80,6 +82,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * playerSpeed);
+
+        Debug.Log(move);
 
         if(move!= Vector3.zero)
         {

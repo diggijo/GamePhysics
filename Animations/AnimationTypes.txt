@@ -3,3 +3,5 @@ Grouping - Substate machines - Behaviours e.g Footsteps on contact with ground.
 Layering/Masks
 Alernate Source Animation
 Inverse Kinematics
+
+https://www.youtube.com/watch?v=lpekqN4_4xg - Sub State Machine for Jumping
