@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,17 +72,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        checkGrounded();
 
         if(isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        Vector3 move = getMovement();
+        movePlayer(move);
 
-        if(move!= Vector3.zero)
+        if(moving(move))
         {
             runTimer += Time.deltaTime;
             animator.SetFloat("xAxis", move.x);
@@ -115,16 +116,15 @@ public class PlayerMovement : MonoBehaviour
             runTimer = 0;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (canJump())
         {
-            velocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-            CurrentState = PlayerStates.JUMP;
+            jump();
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        if(velocity.y < 0 && !isGrounded)
+        if(falling())
         {
             animator.SetBool("isFalling", true);
             animator.SetBool("isJumping", false);
@@ -134,5 +134,43 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isFalling", false);
         }
+    }
+
+    private bool checkGrounded()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        return isGrounded;
+    }
+
+    private Vector3 getMovement()
+    {
+        return new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+    }
+
+    private void movePlayer(Vector3 v)
+    {
+        controller.Move(v * Time.deltaTime * playerSpeed);
+    }
+
+    private bool moving(Vector3 v)
+    {
+        return v != Vector3.zero;
+    }
+
+    private bool canJump()
+    {
+        return Input.GetButtonDown("Jump") && isGrounded;
+    }
+
+    private void jump()
+    {
+        velocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        CurrentState = PlayerStates.JUMP;
+    }
+
+    private bool falling()
+    {
+        return velocity.y < 0 && !isGrounded;
     }
 }
