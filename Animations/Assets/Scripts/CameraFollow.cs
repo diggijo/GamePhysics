@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] public GameObject player;
-    public float cameraDistance = 4f;
-    public float cameraHeight = 3f;
+    private float cameraDistance = 4f;
+    private float cameraHeight = 3f;
 
     void LateUpdate()
     {

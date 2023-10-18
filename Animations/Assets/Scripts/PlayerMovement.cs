@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
         IDLE,
         WALK,
         RUN,
-        SPRINT
+        SPRINT,
+        JUMP
     }
 
     PlayerStates CurrentState
@@ -23,37 +24,46 @@ public class PlayerMovement : MonoBehaviour
                 case PlayerStates.IDLE:
                     animator.SetBool("isWalking", false);
                     animator.SetBool("isRunning", false);
-                    animator.SetBool("isSprinting", false);
                     break;
                 case PlayerStates.WALK:
                     playerSpeed = WALK_SPEED;
                     animator.SetBool("isWalking", true);
+                    animator.SetBool("isRunning", false);
                     break;
                 case PlayerStates.RUN:
                     playerSpeed = RUN_SPEED;
+                    animator.SetBool("isWalking", false);
                     animator.SetBool("isRunning", true);
                     animator.SetBool("isSprinting", false);
                     break;
                 case PlayerStates.SPRINT:
                     playerSpeed = SPRINT_SPEED;
                     animator.SetBool("isSprinting", true);
+                    animator.SetBool("isWalking", false);
+                    break;
+                case PlayerStates.JUMP:
+                    animator.SetBool("isJumping", true);
                     break;
             }
         }
     }
+    private PlayerStates currentState;
     private CharacterController controller;
     private Animator animator;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
     private float playerSpeed;
     private const float WALK_SPEED = 2f;
     private const float RUN_SPEED = 4f;
     private const float SPRINT_SPEED = 6f;
     private float runTimer = 0f;
     private float startRunning = 3f;
-    //private float jumpHeight = 1.0f;
-    //private float gravityValue = -9.81f;
-    private PlayerStates currentState;
+    private Vector3 velocity;
+    private float jumpHeight = 3f;
+    private float gravity = -9.81f;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private Transform groundCheck;
+    private float groundDistance = .05f;
+    private bool isGrounded;
+
 
     private void Start()
     {
@@ -63,14 +73,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if(isGrounded && velocity.y < 0)
         {
-            playerVelocity.y = 0f;
+            velocity.y = -2f;
         }
 
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * playerSpeed);
+
+        Debug.Log(move);
 
         if(move!= Vector3.zero)
         {
@@ -98,18 +111,32 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            CurrentState = PlayerStates.IDLE;
+            if (isGrounded)
+            {
+                CurrentState = PlayerStates.IDLE;
+            }
+
             runTimer = 0;
         }
 
-        /*
-        // Changes the height position of the player..
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            velocity.y += Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+            CurrentState = PlayerStates.JUMP;
         }
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);*/
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
+        if(velocity.y < 0 && !isGrounded)
+        {
+            animator.SetBool("isFalling", true);
+            animator.SetBool("isJumping", false);
+        }
+
+        else
+        {
+            animator.SetBool("isFalling", false);
+        }
     }
 }
