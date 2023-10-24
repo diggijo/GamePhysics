@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -133,6 +134,22 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("isFalling", false);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetBool("punchingLeft", true);
+        }
+
+        else if (Input.GetMouseButtonDown(1))
+        {
+            animator.SetBool("punchingRight", true);
+        }
+
+        else
+        {
+            animator.SetBool("punchingRight", false);
+            animator.SetBool("punchingLeft", false);
         }
     }
 
