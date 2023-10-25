@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
         WALK,
         RUN,
         SPRINT,
-        JUMP
+        JUMP,
+        FALLING,
     }
 
     PlayerStates CurrentState
@@ -21,12 +22,13 @@ public class PlayerMovement : MonoBehaviour
         {
             currentState = value;
 
-            switch(currentState)
+            switch (currentState)
             {
                 case PlayerStates.IDLE:
                     animator.SetBool("isWalking", false);
                     animator.SetBool("isRunning", false);
                     animator.SetBool("isSprinting", false);
+                    animator.SetBool("isKicking", false);
                     break;
                 case PlayerStates.WALK:
                     playerSpeed = WALK_SPEED;
@@ -44,6 +46,10 @@ public class PlayerMovement : MonoBehaviour
                 case PlayerStates.JUMP:
                     animator.SetBool("isJumping", true);
                     break;
+                case PlayerStates.FALLING:
+                    animator.SetBool("isFalling", true);
+                    animator.SetBool("isJumping", false);
+                    break;
             }
         }
     }
@@ -54,8 +60,8 @@ public class PlayerMovement : MonoBehaviour
     private const float WALK_SPEED = 2f;
     private const float RUN_SPEED = 4f;
     private const float SPRINT_SPEED = 6f;
+    private const float START_RUNNING = 3f;
     private float runTimer = 0f;
-    private float startRunning = 3f;
     private Vector3 velocity;
     private float jumpHeight = 3f;
     private float gravity = -9.81f;
@@ -75,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
     {
         checkGrounded();
 
-        if(isGrounded && velocity.y < 0)
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
@@ -83,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = getMovement();
         movePlayer(move);
 
-        if(moving(move))
+        if (moving(move))
         {
             runTimer += Time.deltaTime;
             animator.SetFloat("xAxis", move.x);
@@ -96,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
             else
             {
-                if (runTimer < startRunning)
+                if (runTimer < START_RUNNING)
                 {
                     CurrentState = PlayerStates.WALK;
                 }
@@ -107,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+
         else
         {
             if (isGrounded)
@@ -125,10 +132,9 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        if(falling())
+        if (falling())
         {
-            animator.SetBool("isFalling", true);
-            animator.SetBool("isJumping", false);
+            fall();
         }
 
         else
@@ -148,8 +154,17 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            animator.SetBool("punchingRight", false);
-            animator.SetBool("punchingLeft", false);
+            stopPunching();
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            animator.SetBool("isKicking", true);
+        }
+
+        else
+        {
+            animator.SetBool("isKicking", false);
         }
     }
 
@@ -189,5 +204,16 @@ public class PlayerMovement : MonoBehaviour
     private bool falling()
     {
         return velocity.y < 0 && !isGrounded;
+    }
+
+    private void fall()
+    {
+        CurrentState = PlayerStates.FALLING;
+    }
+
+    private void stopPunching()
+    {
+        animator.SetBool("punchingRight", false);
+        animator.SetBool("punchingLeft", false);
     }
 }
