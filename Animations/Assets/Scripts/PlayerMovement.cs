@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
         RUN,
         SPRINT,
         JUMP,
-        FALLING
+        FALLING,
     }
 
     PlayerStates CurrentState
@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
                     animator.SetBool("isWalking", false);
                     animator.SetBool("isRunning", false);
                     animator.SetBool("isSprinting", false);
+                    animator.SetBool("isKicking", false);
                     break;
                 case PlayerStates.WALK:
                     playerSpeed = WALK_SPEED;
@@ -112,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+
         else
         {
             if (isGrounded)
@@ -153,6 +155,16 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             stopPunching();
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            animator.SetBool("isKicking", true);
+        }
+
+        else
+        {
+            animator.SetBool("isKicking", false);
         }
     }
 
