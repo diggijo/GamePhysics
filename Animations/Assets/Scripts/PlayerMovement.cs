@@ -139,17 +139,17 @@ public class PlayerMovement : MonoBehaviour
 
         else
         {
-            animator.SetBool("isFalling", false);
+            stopFalling();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            animator.SetBool("punchingLeft", true);
+            punchLeft();
         }
 
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
-            animator.SetBool("punchingRight", true);
+            punchRight();
         }
 
         else
@@ -159,14 +159,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            animator.SetBool("isKicking", true);
+            kick();
         }
 
         else
         {
-            animator.SetBool("isKicking", false);
+            stopKicking();
         }
     }
+
 
     private bool checkGrounded()
     {
@@ -211,9 +212,34 @@ public class PlayerMovement : MonoBehaviour
         CurrentState = PlayerStates.FALLING;
     }
 
+    private void stopFalling()
+    {
+        animator.SetBool("isFalling", false);
+    }
+
+    private void punchLeft()
+    {
+        animator.SetBool("punchingLeft", true);
+    }
+
+    private void punchRight()
+    {
+        animator.SetBool("punchingRight", true);
+    }
+
     private void stopPunching()
     {
         animator.SetBool("punchingRight", false);
         animator.SetBool("punchingLeft", false);
+    }
+
+    private void kick()
+    {
+        animator.SetBool("isKicking", true);
+    }
+
+    private void stopKicking()
+    {
+        animator.SetBool("isKicking", false);
     }
 }
