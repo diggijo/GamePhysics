@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: bd1c2e9064da28e4fb0fe4a3f6ff4e33
+guid: 154a724602422044c91070a5f3c67c11
 ModelImporter:
-  serializedVersion: 20200
+  serializedVersion: 21300
   internalIDToNameTable:
   - first:
       1: 100000
@@ -496,59 +496,11 @@ ModelImporter:
       74: 7400046
     second: BasicMotions@Run01 - BackwardsRight [RM]
   - first:
-      74: 7400048
-    second: BasicMotions@Walk01 - Forwards [RM]
-  - first:
-      74: 7400050
-    second: BasicMotions@Walk01 - ForwardsLeft [RM]
-  - first:
-      74: 7400052
-    second: BasicMotions@Walk01 - ForwardsRight [RM]
-  - first:
-      74: 7400054
-    second: BasicMotions@Walk01 - Left [RM]
-  - first:
-      74: 7400056
-    second: BasicMotions@Walk01 - Right [RM]
-  - first:
-      74: 7400058
-    second: BasicMotions@Walk01 - Backwards [RM]
-  - first:
-      74: 7400060
-    second: BasicMotions@Walk01 - BackwardsLeft [RM]
-  - first:
-      74: 7400062
-    second: BasicMotions@Walk01 - BackwardsRight [RM]
-  - first:
       95: 9500000
     second: //RootNode
   - first:
       41386430: 2186277476908879412
     second: ImportLogs
-  - first:
-      74: 1695192892109923712
-    second: BasicMotions@Walk01 - Forwards
-  - first:
-      74: -4806549469666548942
-    second: BasicMotions@Walk01 - ForwardsLeft
-  - first:
-      74: 1922147897020755831
-    second: BasicMotions@Walk01 - ForwardsRight
-  - first:
-      74: 5659637821263495846
-    second: BasicMotions@Walk01 - Left
-  - first:
-      74: 5265780745243343361
-    second: BasicMotions@Walk01 - Right
-  - first:
-      74: 122471509461140758
-    second: BasicMotions@Walk01 - Backwards
-  - first:
-      74: -596700691782342955
-    second: BasicMotions@Walk01 - BackwardsLeft
-  - first:
-      74: -9013019248230706172
-    second: BasicMotions@Walk01 - BackwardsRight
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -560,6 +512,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -578,11 +531,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - Forwards
-      takeName: BasicMotions@Walk01 - Forwards
+      name: BasicMotions@Run01 - Forwards
+      takeName: BasicMotions@Run01 - Forwards
       internalID: 0
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -601,17 +554,24 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.40994543
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - ForwardsLeft
-      takeName: BasicMotions@Walk01 - ForwardsLeft
+      name: BasicMotions@Run01 - ForwardsLeft
+      takeName: BasicMotions@Run01 - ForwardsLeft
       internalID: 0
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -630,17 +590,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.07501608
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5677834
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - ForwardsRight
-      takeName: BasicMotions@Walk01 - ForwardsRight
+      name: BasicMotions@Run01 - ForwardsRight
+      takeName: BasicMotions@Run01 - ForwardsRight
       internalID: 0
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -659,17 +633,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.06960598
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5609269
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - Left
-      takeName: BasicMotions@Walk01 - Left
+      name: BasicMotions@Run01 - Left
+      takeName: BasicMotions@Run01 - Left
       internalID: 0
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -688,17 +676,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.07654921
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.58696795
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - Right
-      takeName: BasicMotions@Walk01 - Right
+      name: BasicMotions@Run01 - Right
+      takeName: BasicMotions@Run01 - Right
       internalID: 0
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -717,17 +719,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.07207723
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.577096
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - Backwards
-      takeName: BasicMotions@Walk01 - Backwards
+      name: BasicMotions@Run01 - Backwards
+      takeName: BasicMotions@Run01 - Backwards
       internalID: 0
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -746,17 +762,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.23537582
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7207489
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - BackwardsLeft
-      takeName: BasicMotions@Walk01 - BackwardsLeft
+      name: BasicMotions@Run01 - BackwardsLeft
+      takeName: BasicMotions@Run01 - BackwardsLeft
       internalID: 0
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -775,17 +805,31 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.23884743
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.76655906
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: BasicMotions@Walk01 - BackwardsRight
-      takeName: BasicMotions@Walk01 - BackwardsRight
+      name: BasicMotions@Run01 - BackwardsRight
+      takeName: BasicMotions@Run01 - BackwardsRight
       internalID: 0
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -804,7 +848,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.24665858
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7675751
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -821,6 +879,7 @@ ModelImporter:
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -832,6 +891,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -1623,6 +1683,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

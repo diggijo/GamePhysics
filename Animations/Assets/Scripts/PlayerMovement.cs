@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
         FALLING,
     }
 
-    PlayerStates CurrentState
+    private PlayerStates CurrentState
     {
         set
         {
@@ -142,12 +142,12 @@ public class PlayerMovement : MonoBehaviour
             stopFalling();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetMouseButtonDown(0))
         {
             punchLeft();
         }
 
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetMouseButtonDown(1))
         {
             punchRight();
         }
