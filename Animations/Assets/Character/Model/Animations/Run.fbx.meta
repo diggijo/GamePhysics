@@ -555,7 +555,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.40994543
+      - time: 0.061249245
+        functionName: PlayFootStep
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5494239
         functionName: PlayFootStep
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -763,14 +770,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.23537582
+      - time: 0.71315956
         functionName: PlayFootStep
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7207489
+      - time: 0.19769557
         functionName: PlayFootStep
         data: 
         objectReferenceParameter: {instanceID: 0}
