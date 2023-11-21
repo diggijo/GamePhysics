@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour //MonoBehaviour
 {
     private enum PlayerStates
     {
@@ -67,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
     private float gravity = -9.81f;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform spawnObjectPrefab;
+    private Transform spawnedObjectTransform;
     private float groundDistance = .05f;
     private bool isGrounded;
 
@@ -79,7 +82,20 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if(!IsOwner) return;
+
         checkGrounded();
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            spawnedObjectTransform = Instantiate(spawnObjectPrefab);
+            spawnedObjectTransform.GetComponent<NetworkObject>().Spawn(true);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            Destroy(spawnedObjectTransform.gameObject);
+        }
 
         if (isGrounded && velocity.y < 0)
         {
