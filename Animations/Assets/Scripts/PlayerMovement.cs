@@ -88,13 +88,12 @@ public class PlayerMovement : NetworkBehaviour //MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.T))
         {
-            spawnedObjectTransform = Instantiate(spawnObjectPrefab);
-            spawnedObjectTransform.GetComponent<NetworkObject>().Spawn(true);
+            spawnPrefabServerRpc();
         }
 
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            Destroy(spawnedObjectTransform.gameObject);
+            despawnPrefabServerRpc();
         }
 
         if (isGrounded && velocity.y < 0)
@@ -257,5 +256,31 @@ public class PlayerMovement : NetworkBehaviour //MonoBehaviour
     private void stopKicking()
     {
         animator.SetBool("isKicking", false);
+    }
+
+    [ServerRpc]
+    private void spawnPrefabServerRpc()
+    {
+        spawnedObjectTransform = Instantiate(spawnObjectPrefab);
+        spawnedObjectTransform.GetComponent<NetworkObject>().Spawn(true);
+    }
+
+    [ServerRpc]
+    private void despawnPrefabServerRpc()
+    {
+        Destroy(spawnedObjectTransform.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        float forceMagnitude = 1f;
+
+        if(other.tag == "Ball")
+        {
+            Vector3 forceDirection = other.transform.position - transform.position;
+            forceDirection.Normalize();
+
+            other.GetComponent<Rigidbody>().AddForce(forceDirection * forceMagnitude, ForceMode.Impulse);
+        }
     }
 }
