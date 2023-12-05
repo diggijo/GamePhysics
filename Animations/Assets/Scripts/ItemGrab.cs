@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemGrab : MonoBehaviour
 {
     private bool canCollect = false;
+    [SerializeField] Animator animator;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,6 +13,7 @@ public class ItemGrab : MonoBehaviour
         {
             Debug.Log("Can pick up");
             canCollect = true;
+
         }
     }
 
@@ -28,6 +30,7 @@ public class ItemGrab : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && canCollect)
         {
+            animator.SetTrigger("GrabItem");
             Destroy(gameObject);
         }
     }
