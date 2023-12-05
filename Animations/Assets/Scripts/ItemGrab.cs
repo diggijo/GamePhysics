@@ -5,7 +5,8 @@ using UnityEngine;
 public class ItemGrab : MonoBehaviour
 {
     private bool canCollect = false;
-    [SerializeField] Animator animator;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Transform hand;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,10 +29,9 @@ public class ItemGrab : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canCollect)
+        if (Input.GetKeyDown(KeyCode.E))
         {
             animator.SetTrigger("GrabItem");
-            Destroy(gameObject);
         }
     }
 }
