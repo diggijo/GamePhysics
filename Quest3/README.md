@@ -32,14 +32,14 @@ Switch the Oculus headset into developer mode to enable USB-C connections for bu
 
 Include a scene model and support for room space rendering, creating a visually engaging environment for the game.
 
-#### Gameplay
+### Gameplay
 
 The game features a shooting mechanism where players can shoot balls against AR walls, floors, and other surfaces. The integration of AR elements enhances the gaming experience, providing a dynamic and interactive environment.
 
-#### Depth Detection
+### Depth Detection
 
 Utilizing the Quest depth detector, the project introduces depth to the AR experience. This feature adds a layer of realism by detecting the depth of the surroundings, allowing for more immersive interactions.
 
-#### Scripting
+### Scripting
 
 A simple shooting ball script has been implemented to facilitate gameplay. This script enables users to shoot balls and interact with the AR elements, creating a fun and engaging gaming 
